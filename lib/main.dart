@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shinobi_tool/pages/modules/home/home.dart';
+import 'package:shinobi_tool/routes/routes.dart';
+
+import 'modules/Home/HomePage.dart';
 
 void main() => runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
@@ -30,4 +32,7 @@ void main() => runApp(GetMaterialApp(
          ThemeMode.light for light theme,
          ThemeMode.dark for dark theme */
     themeMode: ThemeMode.system,
+    getPages: Routes.getRoutes(),
+    initialRoute: Routes.homePage,
+    unknownRoute: Routes.getPageByName(Routes.notFoundPage),
     home: HomePage()));

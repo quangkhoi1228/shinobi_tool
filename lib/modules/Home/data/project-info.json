@@ -1,0 +1,125 @@
+{
+    "aladin": {
+        "git": "https://gitlab.com/luongdangdung/aladin.git"
+    },
+    "aladinmobile": {
+        "git": "https://gitlab.com/luongdangdung/aladinmobile.git"
+    },
+    "tradingsystemweb": {
+        "git": "https://gitlab.com/luongdangdung/tradingsystemweb.git"
+    },
+    "shinobiindicator": {
+        "git": "https://gitlab.com/luongdangdung/shinobiindicator.git"
+    },
+    "dragonballbot": {
+        "git": "https://gitlab.com/luongdangdung/dragonballbot.git"
+    },
+    "shinobibotcore": {
+        "git": "https://gitlab.com/luongdangdung/shinobibotcore.git"
+    },
+    "tradingsystem": {
+        "git": "https://gitlab.com/luongdangdung/tradingsystem.git"
+    },
+    "shinobibot": {
+        "git": "https://gitlab.com/luongdangdung/shinobibot.git"
+    },
+    "aladinaudit": {
+        "git": "https://gitlab.com/luongdangdung/aladinaudit.git"
+    },
+    "atoolcrawler": {
+        "git": "https://gitlab.com/luongdangdung/atoolcrawler.git"
+    },
+    "aladinagent": {
+        "git": "https://gitlab.com/luongdangdung/aladinagent.git"
+    },
+    "showcase": {
+        "git": "https://gitlab.com/luongdangdung/showcase.git"
+    },
+    "cmedweb": {
+        "git": "https://gitlab.com/luongdangdung/cmedweb.git"
+    },
+    "crmsync": {
+        "git": "https://gitlab.com/luongdangdung/crmsync.git"
+    },
+    "shinobicore": {
+        "git": "https://gitlab.com/luongdangdung/shinobicore.git"
+    },
+    "shinobicrawler": {
+        "git": "https://gitlab.com/luongdangdung/shinobicrawler.git"
+    },
+    "goldprice": {
+        "git": "https://gitlab.com/luongdangdung/goldprice.git"
+    },
+    "sms": {
+        "git": "https://gitlab.com/luongdangdung/sms.git"
+    },
+    "snbwebtrading": {
+        "git": "https://gitlab.com/luongdangdung/snbwebtrading.git"
+    },
+    "physicalgold": {
+        "git": "https://gitlab.com/luongdangdung/physicalgold.git"
+    },
+    "shinobiranking": {
+        "git": "https://gitlab.com/luongdangdung/shinobiranking.git"
+    },
+    "vsepriceboard": {
+        "git": "https://gitlab.com/luongdangdung/vsepriceboard.git"
+    },
+    "shinobivse": {
+        "git": "https://gitlab.com/luongdangdung/shinobivse.git"
+    },
+    "aladinpromotion": {
+        "git": "https://gitlab.com/luongdangdung/aladinpromotion.git"
+    },
+    "shinobicorev2": {
+        "git": "https://gitlab.com/luongdangdung/shinobicorev2.git"
+    },
+    "shinobicoreweb": {
+        "git": "https://gitlab.com/luongdangdung/shinobicoreweb.git"
+    },
+    "snbpriceboardsocket": {
+        "git": "https://gitlab.com/luongdangdung/snbpriceboardsocket.git"
+    },
+    "shinobimail": {
+        "git": "https://gitlab.com/luongdangdung/shinobimail.git"
+    },
+    "CBV": {
+        "git": "https://gitlab.com/luongdangdung/CBV.git"
+    },
+    "stockmobileweb": {
+        "git": "https://gitlab.com/luongdangdung/stockmobileweb.git"
+    },
+    "stockmobile": {
+        "git": "https://gitlab.com/luongdangdung/stockmobile.git"
+    },
+    "amail": {
+        "git": "https://gitlab.com/luongdangdung/amail.git"
+    },
+    "feseon": {
+        "git": "https://gitlab.com/luongdangdung/feseon.git"
+    },
+    "shinobisocket": {
+        "git": "https://gitlab.com/luongdangdung/shinobisocket.git"
+    },
+    "shinobiutil": {
+        "git": "https://gitlab.com/luongdangdung/shinobiutil.git"
+    },
+    "snbpriceboard": {
+        "git": "https://gitlab.com/luongdangdung/snbpriceboard.git"
+    },
+    "vse": {
+        "git": "https://gitlab.com/luongdangdung/vse.git"
+    },
+    "AldinMobile": {
+        "git": "https://gitlab.com/luongdangdung/AldinMobile.git"
+    },
+    "fxbot": {
+        "git": "https://gitlab.com/luongdangdung/fxbot.git"
+    },
+    "mobiqldh": {
+        "git": "https://gitlab.com/luongdangdung/mobiqldh.git"
+    },
+    "shinobiweb": {
+        "git": "https://gitlab.com/luongdangdung/shinobiweb.git"
+    }
+}
