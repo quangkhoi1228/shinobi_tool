@@ -2,15 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shinobi_tool/modules/Home/HomePage.dart';
-import 'package:shinobi_tool/modules/SetupSource/SetupSourcePage.dart';
+import 'package:shinobi_tool/modules/SetupSource/SetupSource.dart';
 import 'package:shinobi_tool/modules/Unknown/UnknownPage.dart';
-
 
 class RouteItem {
   String name;
   String title;
   Widget page;
   Widget icon;
+
   RouteItem(
       {required this.name,
       required this.title,

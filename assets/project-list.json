@@ -1,0 +1,166 @@
+{
+    "aladin": {
+        "git": "https://gitlab.com/luongdangdung/aladin.git",
+        "branch": "develop"
+    },
+    "aladinmobile": {
+        "git": "https://gitlab.com/luongdangdung/aladinmobile.git",
+        "branch": "develop"
+    },
+    "tradingsystemweb": {
+        "git": "https://gitlab.com/luongdangdung/tradingsystemweb.git",
+        "branch": "develop"
+    },
+    "shinobiindicator": {
+        "git": "https://gitlab.com/luongdangdung/shinobiindicator.git",
+        "branch": "develop"
+    },
+    "dragonballbot": {
+        "git": "https://gitlab.com/luongdangdung/dragonballbot.git",
+        "branch": "develop"
+    },
+    "shinobibotcore": {
+        "git": "https://gitlab.com/luongdangdung/shinobibotcore.git",
+        "branch": "develop"
+    },
+    "tradingsystem": {
+        "git": "https://gitlab.com/luongdangdung/tradingsystem.git",
+        "branch": "develop"
+    },
+    "shinobibot": {
+        "git": "https://gitlab.com/luongdangdung/shinobibot.git",
+        "branch": "develop"
+    },
+    "aladinaudit": {
+        "git": "https://gitlab.com/luongdangdung/aladinaudit.git",
+        "branch": "develop"
+    },
+    "atoolcrawler": {
+        "git": "https://gitlab.com/luongdangdung/atoolcrawler.git",
+        "branch": "develop"
+    },
+    "aladinagent": {
+        "git": "https://gitlab.com/luongdangdung/aladinagent.git",
+        "branch": "develop"
+    },
+    "showcase": {
+        "git": "https://gitlab.com/luongdangdung/showcase.git",
+        "branch": "develop"
+    },
+    "cmedweb": {
+        "git": "https://gitlab.com/luongdangdung/cmedweb.git",
+        "branch": "develop"
+    },
+    "crmsync": {
+        "git": "https://gitlab.com/luongdangdung/crmsync.git",
+        "branch": "develop"
+    },
+    "shinobicore": {
+        "git": "https://gitlab.com/luongdangdung/shinobicore.git",
+        "branch": "develop"
+    },
+    "shinobicrawler": {
+        "git": "https://gitlab.com/luongdangdung/shinobicrawler.git",
+        "branch": "develop"
+    },
+    "goldprice": {
+        "git": "https://gitlab.com/luongdangdung/goldprice.git",
+        "branch": "develop"
+    },
+    "sms": {
+        "git": "https://gitlab.com/luongdangdung/sms.git",
+        "branch": "develop"
+    },
+    "snbwebtrading": {
+        "git": "https://gitlab.com/luongdangdung/snbwebtrading.git",
+        "branch": "develop"
+    },
+    "physicalgold": {
+        "git": "https://gitlab.com/luongdangdung/physicalgold.git",
+        "branch": "develop"
+    },
+    "shinobiranking": {
+        "git": "https://gitlab.com/luongdangdung/shinobiranking.git",
+        "branch": "develop"
+    },
+    "vsepriceboard": {
+        "git": "https://gitlab.com/luongdangdung/vsepriceboard.git",
+        "branch": "develop"
+    },
+    "shinobivse": {
+        "git": "https://gitlab.com/luongdangdung/shinobivse.git",
+        "branch": "develop"
+    },
+    "aladinpromotion": {
+        "git": "https://gitlab.com/luongdangdung/aladinpromotion.git",
+        "branch": "develop"
+    },
+    "shinobicorev2": {
+        "git": "https://gitlab.com/luongdangdung/shinobicorev2.git",
+        "branch": "develop"
+    },
+    "shinobicoreweb": {
+        "git": "https://gitlab.com/luongdangdung/shinobicoreweb.git",
+        "branch": "develop"
+    },
+    "snbpriceboardsocket": {
+        "git": "https://gitlab.com/luongdangdung/snbpriceboardsocket.git",
+        "branch": "develop"
+    },
+    "shinobimail": {
+        "git": "https://gitlab.com/luongdangdung/shinobimail.git",
+        "branch": "develop"
+    },
+    "CBV": {
+        "git": "https://gitlab.com/luongdangdung/CBV.git",
+        "branch": "develop"
+    },
+    "stockmobileweb": {
+        "git": "https://gitlab.com/luongdangdung/stockmobileweb.git",
+        "branch": "develop"
+    },
+    "stockmobile": {
+        "git": "https://gitlab.com/luongdangdung/stockmobile.git",
+        "branch": "develop"
+    },
+    "amail": {
+        "git": "https://gitlab.com/luongdangdung/amail.git",
+        "branch": "develop"
+    },
+    "feseon": {
+        "git": "https://gitlab.com/luongdangdung/feseon.git",
+        "branch": "develop"
+    },
+    "shinobisocket": {
+        "git": "https://gitlab.com/luongdangdung/shinobisocket.git",
+        "branch": "develop"
+    },
+    "shinobiutil": {
+        "git": "https://gitlab.com/luongdangdung/shinobiutil.git",
+        "branch": "develop"
+    },
+    "snbpriceboard": {
+        "git": "https://gitlab.com/luongdangdung/snbpriceboard.git",
+        "branch": "develop"
+    },
+    "vse": {
+        "git": "https://gitlab.com/luongdangdung/vse.git",
+        "branch": "develop"
+    },
+    "AldinMobile": {
+        "git": "https://gitlab.com/luongdangdung/AldinMobile.git",
+        "branch": "develop"
+    },
+    "fxbot": {
+        "git": "https://gitlab.com/luongdangdung/fxbot.git",
+        "branch": "develop"
+    },
+    "mobiqldh": {
+        "git": "https://gitlab.com/luongdangdung/mobiqldh.git",
+        "branch": "develop"
+    },
+    "shinobiweb": {
+        "git": "https://gitlab.com/luongdangdung/shinobiweb.git",
+        "branch": "develop"
+    }
+}

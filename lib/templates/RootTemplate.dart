@@ -6,6 +6,7 @@ import 'package:shinobi_tool/styles/Css.dart';
 class RootTemplate extends StatefulWidget {
   final String title;
   final Widget child;
+
   const RootTemplate({Key? key, required this.child, required this.title})
       : super(key: key);
 
@@ -21,10 +22,8 @@ class _RootTemplateState extends State<RootTemplate> {
           title: Text(widget.title),
         ),
         drawer: _buildDrawer(),
-        body: Center(
-          child: Container(
-              padding: EdgeInsets.all(Css.padding), child: widget.child),
-        ));
+        body: Container(
+            padding: EdgeInsets.all(Css.padding), child: widget.child));
   }
 
   Widget _buildDrawer() {
