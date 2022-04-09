@@ -69,6 +69,10 @@ class SnbJson {
     return (value != null) ? value : [];
   }
 
+  void setBool(String key, bool value) {
+    this.data[key] = (value.toString() == 'true');
+  }
+
   void set(String key, dynamic value) {
     this.data[key] = value;
   }

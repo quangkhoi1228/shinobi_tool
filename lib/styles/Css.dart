@@ -81,7 +81,7 @@ class Css {
   static final Color isLight = Color(0xf5f5f5f5);
   static Color isRed = Color(0xffed3536);
   static Color isYellow = Color(0xffffd900);
-  static Color isGreen = Color(0xff3ac426);
+  static Color isGreen = Colors.green.shade700;
   static Color isGreenDark = Color(0xff008f41);
   static Color isLink = Color(0xff7faefb);
   static Color isInfo = Color(0xff1a73e8);
