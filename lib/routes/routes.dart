@@ -5,12 +5,13 @@ import 'package:shinobi_tool/modules/ExportJar/ExportJar.dart';
 import 'package:shinobi_tool/modules/Home/HomePage.dart';
 import 'package:shinobi_tool/modules/SetupSource/SetupSource.dart';
 import 'package:shinobi_tool/modules/Unknown/UnknownPage.dart';
+import 'package:shinobi_tool/styles/Css.dart';
 
 class RouteItem {
   String name;
   String title;
   Widget page;
-  Widget icon;
+  Function icon;
 
   RouteItem(
       {required this.name,
@@ -27,20 +28,43 @@ class Routes {
 
   static List<RouteItem> routes = [
     RouteItem(
-        name: '/', icon: Icon(Icons.home), title: 'Home', page: new HomePage()),
+        name: '/',
+        icon: (bool isActive) {
+          return Icon(Icons.home,
+              size: Css.fontSizeMedium,
+              color:
+                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        },
+        title: 'Home',
+        page: new HomePage()),
     RouteItem(
         name: '/notfound/',
-        icon: Icon(Icons.home),
+        icon: (bool isActive) {
+          return Icon(Icons.home,
+              size: Css.fontSizeMedium,
+              color:
+                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        },
         title: 'Not Found',
         page: UnknownPage()),
     RouteItem(
         name: '/SetupSourcePage/',
-        icon: Icon(Icons.settings),
+        icon: (bool isActive) {
+          return Icon(Icons.settings,
+              size: Css.fontSizeMedium,
+              color:
+                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        },
         title: 'Setup Source',
         page: SetupSourcePage()),
     RouteItem(
         name: '/ExportJarPage/',
-        icon: Icon(Icons.exit_to_app),
+        icon: (bool isActive) {
+          return Icon(Icons.exit_to_app,
+              size: Css.fontSizeMedium,
+              color:
+                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        },
         title: 'Export Jar',
         page: ExportJarPage()),
   ];

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
-import 'package:shinobi_tool/routes/routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
+import 'package:shinobi_tool/templates/Menu.dart';
 import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 
 class RootTemplate extends StatefulWidget {
@@ -40,35 +39,8 @@ class _RootTemplateState extends State<RootTemplate> {
                             : Icons.dark_mode)))
           ],
         ),
-        drawer: _buildDrawer(),
-        body: SingleChildScrollView(
-          child: Container(
-              padding: EdgeInsets.all(Css.padding), child: widget.child),
-        ));
-  }
-
-  Widget _buildDrawer() {
-    List<String> drawerItem = [
-      Routes.homePage,
-      Routes.setupSourcePage,
-      Routes.exportJarPage,
-    ];
-
-    List<Widget> children = drawerItem.map((String drawerItem) {
-      RouteItem item = Routes.getRouteItemByName(drawerItem);
-      return ListTile(
-        title: Row(
-          children: [
-            Text(item.title),
-          ],
-        ),
-        onTap: () {
-          Get.toNamed(item.name);
-        },
-      );
-    }).toList();
-
-    return Drawer(
-        child: ListView(padding: EdgeInsets.zero, children: children));
+        drawer: Menu(),
+        body: Container(
+            padding: EdgeInsets.all(Css.padding), child: widget.child));
   }
 }

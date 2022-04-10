@@ -42,6 +42,8 @@ class ExportJarPage extends StatelessWidget {
       mainClassController.text = data.getString('exportJar_mainClass');
       workspaceController.text = data.getString('exportJar_workspace');
       outputController.text = data.getString('exportJar_output');
+
+      shinobiServerController.text = data.getString('exportJar_shinobiServer');
     });
   }
 
@@ -63,118 +65,124 @@ class ExportJarPage extends StatelessWidget {
         directory.substring(0, directory.indexOf('/git')) + '/deploy');
   }
 
+  void changeIsUseShinobiServer() {
+    bool value = !controller.isUseShinobiServer.isTrue;
+    print(value);
+
+    controller.onChangeUseShinobiServer(value);
+    storage.setItem('exportJar_useShinobiServer', value);
+  }
+
   Widget buildBodyWidget() {
-    return Container(
-        padding: EdgeInsets.only(right: Css.paddingLarge, left: Css.padding),
-        child: Column(children: [
-          control(
-            child: SnbFileInput(
-              controller: projectDirectoryController,
-              labelText: 'Project Directory',
-              isPickDirectory: true,
-              onChanged: (String directory) {
-                onChangeProjectDirectory(directory);
-              },
-            ),
-          ),
-          control(
-            child: TextField(
-              controller: projectNameController,
-              onChanged: (value) => onChangeProjectName(value),
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: 'Project Name',
+    return SingleChildScrollView(
+      child: Container(
+          padding: EdgeInsets.only(right: Css.paddingLarge, left: Css.padding),
+          child: Column(children: [
+            control(
+              child: SnbFileInput(
+                controller: projectDirectoryController,
+                labelText: 'Project Directory',
+                isPickDirectory: true,
+                onChanged: (String directory) {
+                  onChangeProjectDirectory(directory);
+                },
               ),
             ),
-          ),
-          control(
-            child: SnbFileInput(
-              controller: mainClassController,
-              allowedExtensions: ['java'],
-              labelText: 'Main Class',
-              onChanged: (String path) {
-                String mainPackage = path
-                    .substring(path.indexOf('com'))
-                    .replaceAll('/', '.')
-                    .replaceAll('.java', '');
-                mainClassController.text = mainPackage;
-                storage.setItem('exportJar_mainClass', mainPackage);
-              },
+            control(
+              child: TextField(
+                controller: projectNameController,
+                onChanged: (value) => onChangeProjectName(value),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(),
+                  labelText: 'Project Name',
+                ),
+              ),
             ),
-          ),
-          control(
-            child: SnbFileInput(
-              controller: workspaceController,
-              labelText: 'Workspace',
-              isPickDirectory: true,
-              onChanged: (String directory) {
-                storage.setItem(
-                    'exportJar_workspace', workspaceController.text);
-              },
+            control(
+              child: SnbFileInput(
+                controller: mainClassController,
+                allowedExtensions: ['java'],
+                labelText: 'Main Class',
+                onChanged: (String path) {
+                  String mainPackage = path
+                      .substring(path.indexOf('com'))
+                      .replaceAll('/', '.')
+                      .replaceAll('.java', '');
+                  mainClassController.text = mainPackage;
+                  storage.setItem('exportJar_mainClass', mainPackage);
+                },
+              ),
             ),
-          ),
-          control(
-            child: SnbFileInput(
-              controller: outputController,
-              isPickDirectory: true,
-              labelText: 'Output Directory',
-              onChanged: (String directory) {
-                onChangeProjectOutput(outputController.text);
-              },
+            control(
+              child: SnbFileInput(
+                controller: workspaceController,
+                labelText: 'Workspace',
+                isPickDirectory: true,
+                onChanged: (String directory) {
+                  storage.setItem(
+                      'exportJar_workspace', workspaceController.text);
+                },
+              ),
             ),
-          ),
-          control(
-              child: GetX<ExportJarController>(
-            builder: (_) => Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: Css.paddingSmall),
-                  child: InkWell(
-                    onTap: () {
-                      controller.onChangeUseShinobiServer(
-                          !controller.isUseShinobiServer.isTrue);
-                      storage.setItem('exportJar_useShinobiServer',
-                          !controller.isUseShinobiServer.isTrue);
-                    },
-                    child: Row(
-                      children: [
-                        Container(
-                          height: Css.fontSize * 2,
-                          child: Checkbox(
-                            value: controller.isUseShinobiServer.isTrue,
-                            fillColor: Get.theme.checkboxTheme.checkColor,
-                            onChanged: (value) {
-                              controller
-                                  .onChangeUseShinobiServer(value ?? false);
-                              storage.setItem(
-                                  'exportJar_useShinobiServer', value);
-                            },
+            control(
+              child: SnbFileInput(
+                controller: outputController,
+                isPickDirectory: true,
+                labelText: 'Output Directory',
+                onChanged: (String directory) {
+                  onChangeProjectOutput(outputController.text);
+                },
+              ),
+            ),
+            control(
+                child: GetX<ExportJarController>(
+              builder: (_) => Column(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: Css.paddingSmall),
+                    child: InkWell(
+                      onTap: () {
+                        changeIsUseShinobiServer();
+                      },
+                      child: Row(
+                        children: [
+                          Container(
+                            height: Css.fontSize * 2,
+                            child: Checkbox(
+                              value: controller.isUseShinobiServer.isTrue,
+                              fillColor: Get.theme.checkboxTheme.checkColor,
+                              onChanged: (value) {
+                                changeIsUseShinobiServer();
+                              },
+                            ),
                           ),
-                        ),
-                        Text('Use shinobiserver.jar')
-                      ],
+                          Text('Use shinobiserver.jar')
+                        ],
+                      ),
                     ),
                   ),
-                ),
-                Visibility(
-                  visible: controller.isUseShinobiServer.isTrue,
-                  child: SnbFileInput(
-                    controller: shinobiServerController,
-                    allowedExtensions: ['jar'],
-                    labelText: 'shinobiserver.jar path',
-                    onChanged: (String directory) {},
+                  Visibility(
+                    visible: controller.isUseShinobiServer.isTrue,
+                    child: SnbFileInput(
+                      controller: shinobiServerController,
+                      allowedExtensions: ['jar'],
+                      labelText: 'shinobiserver.jar path',
+                      onChanged: (String directory) {
+                        storage.setItem('exportJar_shinobiServer', directory);
+                      },
+                    ),
                   ),
-                ),
-              ],
-            ),
-          )),
-          control(
-              child: SnbButton(
-                  text: "Export",
-                  // isDisabled:
-                  //     selectedItems.length == 0 || controller.hasProcessingItem(),
-                  onPressed: () {}))
-        ]));
+                ],
+              ),
+            )),
+            control(
+                child: SnbButton(
+                    text: "Export",
+                    // isDisabled:
+                    //     selectedItems.length == 0 || controller.hasProcessingItem(),
+                    onPressed: () {}))
+          ])),
+    );
   }
 
   Widget control({required Widget child}) {
