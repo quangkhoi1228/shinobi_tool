@@ -8,6 +8,7 @@ import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbFileInput.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
+import 'package:shinobi_tool/utils/SnbNotification.dart';
 
 import 'controllers/SetupSourceController.dart';
 
@@ -88,8 +89,7 @@ class SetupSourcePage extends StatelessWidget {
         ),
         Container(
           margin: EdgeInsets.only(top: Css.fontSize * 4),
-          decoration:
-              BoxDecoration(color: Css.isDark, borderRadius: Css.borderRadius),
+          decoration: BoxDecoration(borderRadius: Css.borderRadius),
           height: double.infinity,
           child: GetX<SetupSourceController>(
               builder: (_) => ListView.builder(
@@ -110,10 +110,13 @@ class SetupSourcePage extends StatelessWidget {
     switch (data.getString('messageType')) {
       case 'loading':
         progressColor = Get.theme.hintColor;
-        progressIcon = SpinKitDualRing(
-          color: Get.theme.accentColor,
-          size: Css.fontSizeSmall,
-          lineWidth: 1,
+        progressIcon = SizedBox(
+          width: Css.fontSize,
+          child: SpinKitDualRing(
+            color: Get.theme.accentColor,
+            size: Css.fontSizeSmall,
+            lineWidth: 1,
+          ),
         );
         break;
       case 'error':
@@ -136,6 +139,15 @@ class SetupSourcePage extends StatelessWidget {
         break;
     }
 
+    //khi processing thì không cho chọn thêm item, các item đang chọn thì hiện progress
+
+    // processed thì icon tích cho mờ, hiện progress, không  cho click
+    bool isProcessing =
+        controller.isProcessing.isTrue && data.getBool('selected') == true ||
+            data.getString('messageType') == 'loading';
+    bool isProccessed =
+        ['success', 'error'].contains(data.getString('messageType'));
+
     return InkWell(
       child: Container(
           padding: EdgeInsets.all(Css.paddingSmall),
@@ -147,11 +159,15 @@ class SetupSourcePage extends StatelessWidget {
                   Row(
                     children: [
                       Checkbox(
-                        value: (data.containsKey('selected') &&
-                            data.getBool('selected') == true),
-                        onChanged: (value) {
-                          onChangeProject(data);
-                        },
+                        value: data.getBool('selected'),
+                        fillColor: Get.theme.checkboxTheme.checkColor,
+                        onChanged: (isProcessing)
+                            ? (value) {
+                                SnbNotification.info("Processing");
+                              }
+                            : (value) {
+                                onChangeProject(data);
+                              },
                       ),
                       Text(data.getString('name'),
                           style: TextStyle(
@@ -164,8 +180,7 @@ class SetupSourcePage extends StatelessWidget {
                 ],
               ),
               Container(
-                child: (controller.isProcessing.isTrue &&
-                        data.getBool('selected') == true)
+                child: isProcessing || isProccessed
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -249,7 +264,6 @@ class SetupSourcePage extends StatelessWidget {
                 storage.setItem(
                     'projectDirectory', projectDirectoryController.text);
                 this.projectDirectoryController.text = directory;
-                print(directory);
               },
             ),
           ),
@@ -265,11 +279,12 @@ class SetupSourcePage extends StatelessWidget {
             if (selectedItems.length > 1) {
               text = 'Setup ${selectedItems.length} projects';
             }
+
             return SnbButton(
                 text: text,
-                isDisabled: selectedItems.length == 0,
+                isDisabled:
+                    selectedItems.length == 0 || controller.hasProcessingItem(),
                 onPressed: () {
-                  print("1" + projectDirectoryController.text);
                   controller.setupList(
                       username: gitUsernameController.text,
                       password: gitPasswordController.text,

@@ -12,6 +12,8 @@ class NotificationConfig {
 class SnbNotification {
   static NotificationConfig errorConfig = NotificationConfig(
       backgroundColor: Get.theme.errorColor, colorText: Colors.white);
+  static NotificationConfig infoConfig = NotificationConfig(
+      backgroundColor: Get.theme.hintColor, colorText: Colors.black);
   static void show(String title, String message,
       {required NotificationConfig config}) {
     Get.snackbar(title, message,
@@ -23,5 +25,9 @@ class SnbNotification {
 
   static void error(String message) {
     show("Error", message, config: errorConfig);
+  }
+
+  static void info(String message) {
+    show("Info", message, config: infoConfig);
   }
 }

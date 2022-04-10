@@ -5,7 +5,7 @@
     },
     "aladinmobile": {
         "git": "https://gitlab.com/luongdangdung/aladinmobile.git",
-        "branch": "develop"
+        "branch": "master"
     },
     "tradingsystemweb": {
         "git": "https://gitlab.com/luongdangdung/tradingsystemweb.git",

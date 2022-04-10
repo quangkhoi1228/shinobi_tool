@@ -1,12 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider_macos/path_provider_macos.dart';
 
 import 'SnbJson.dart';
 
 class LocalStorage {
   //Creating singleton of LocalStorage
+  static SnbJson defaultInfo = SnbJson.newJson();
   static LocalStorage? obj;
   static instance() {
     if (obj == null) obj = LocalStorage();
@@ -23,7 +25,6 @@ class LocalStorage {
         saveDataPath = directory;
       }
     }
-    print(saveDataPath);
     return saveDataPath;
   }
 
@@ -39,7 +40,10 @@ class LocalStorage {
 //getting instance of file using localPath
   Future<File> get _localFile async {
     final path = await _localPath;
-    return File('$path/data.json');
+    String appName =
+        defaultInfo.getString('appName').toLowerCase().replaceAll(' ', '_');
+
+    return File('$path/${appName}_data.json');
   }
 
 //function to write data in file
@@ -60,13 +64,11 @@ class LocalStorage {
     File file = await _localFile;
     Map<String, dynamic> newItem = {key: value};
     Map<String, dynamic> tempMap;
-    print("a");
     if (await file.exists()) {
       tempMap = json.decode(file.readAsStringSync());
       tempMap.addAll(newItem);
       file.writeAsStringSync(json.encode(tempMap));
     } else {
-      print("b");
       file.writeAsStringSync(json.encode(newItem));
     }
   }

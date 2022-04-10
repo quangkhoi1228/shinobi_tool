@@ -8,10 +8,10 @@ class SnbFileInput extends StatefulWidget {
   bool isPickDirectory;
   Function onChanged;
   Function? onEditingComplete;
-  TextEditingController controller = new TextEditingController();
+  TextEditingController controller;
   SnbFileInput(
       {Key? key,
-      required controller,
+      required this.controller,
       this.isPickDirectory = false,
       this.onEditingComplete,
       required this.onChanged})

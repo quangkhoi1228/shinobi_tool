@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shinobi_tool/routes/routes.dart';
+import 'package:shinobi_tool/utils/LocalStorage.dart';
 
 import 'modules/Home/HomePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
+  PackageInfo.fromPlatform().then((packageInfo) {
+    LocalStorage.defaultInfo.set('appName', packageInfo.appName);
+    LocalStorage.defaultInfo.set('buildNumber', packageInfo.buildNumber);
+    LocalStorage.defaultInfo.set('buildSignature', packageInfo.buildSignature);
+    LocalStorage.defaultInfo.set('packageName', packageInfo.packageName);
+    LocalStorage.defaultInfo.set('version', packageInfo.version);
+  });
+
   runApp(GetMaterialApp(
       debugShowCheckedModeBanner: false,
       /* light theme settings */

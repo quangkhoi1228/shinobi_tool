@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:get/get.dart';
+import 'package:process_run/shell.dart';
 import 'package:shinobi_tool/utils/FileUtil.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
 import 'package:shinobi_tool/utils/SnbNotification.dart';
@@ -9,6 +11,7 @@ class SetupSourceController extends GetxController {
   var count = 0.obs;
   List projectList = [].obs;
   var isProcessing = false.obs;
+  var shell = Shell();
   @override
   void onInit() {
     buildProjectList();
@@ -37,7 +40,8 @@ class SetupSourceController extends GetxController {
         list.add(SnbJson({
           "name": key,
           "git": item.getString('git'),
-          "branch": item.getString('branch')
+          "branch": item.getString('branch'),
+          "selected": false,
         }));
       });
       setProjectList(list);
@@ -55,6 +59,18 @@ class SetupSourceController extends GetxController {
     return result;
   }
 
+  bool hasProcessingItem() {
+    bool result = false;
+    projectList.forEach((element) {
+      SnbJson item = SnbJson(json.encode(element));
+      if (item.getBool('selected') &&
+          item.getString('messageType') == 'loading') {
+        result = true;
+      }
+    });
+    return result;
+  }
+
   void setupList(
       {required String username,
       required String password,
@@ -67,8 +83,6 @@ class SetupSourceController extends GetxController {
     }
 
     if (projectDirectory == '') {
-      print(projectDirectory);
-
       SnbNotification.error("Project directory empty");
       return;
     }
@@ -77,11 +91,10 @@ class SetupSourceController extends GetxController {
       SnbNotification.error("Project list empty");
       return;
     }
+
     listProject.forEach((element) {
       setupProject(username, password, projectDirectory, element);
     });
-
-    // isProcessing.value = false;
   }
 
   void updateProjectProgress(
@@ -90,45 +103,123 @@ class SetupSourceController extends GetxController {
     project.set("message", message);
     project.set("messageType", messageType);
     updateProjectInfo(project);
+    isProcessing.value = hasProcessingItem();
   }
 
   void setupProject(String username, String password, String projectDirectory,
       SnbJson project) {
+    if (project.getString('messageType') == 'success') {
+      isProcessing.value = hasProcessingItem();
+      return;
+    }
     String projectName = project.getString('name');
+    String projectDirectoryFolder = "$projectDirectory/$projectName";
+    String gitFolder = "$projectDirectoryFolder/git";
     int progress = 0;
+    String messageType = 'loading';
+
     //create project folder 10
-    updateProjectProgress(
-        project, progress, 'Create project directory', "loading");
-
-    FileUtil.createFolder('$projectDirectory/$projectName', onExist: () {
+    void createProjectFolder({required Function next}) {
       updateProjectProgress(
-          project, progress, 'Directory already exists', "error");
-      return;
-    }, onNotExist: () {
-      progress = 10;
-      updateProjectProgress(project, progress, 'Done', "loading");
-    });
+          project, progress, 'Create project directory', messageType);
 
-    //create git folder 20
-    updateProjectProgress(project, progress, 'Create git directory', "loading");
+      if (messageType != 'error') {
+        FileUtil.createFolder(projectDirectoryFolder, onExist: () {
+          messageType = 'error';
+          updateProjectProgress(
+              project, progress, 'Directory already exists', messageType);
+        }, onNotExist: () {
+          progress = 10;
+          messageType = 'loading';
+          updateProjectProgress(project, progress, 'Done', messageType);
+          next();
+        });
+      }
+    }
 
-    FileUtil.createFolder('$projectDirectory/$projectName/git', onExist: () {
+    void createGitFolder({required Function next}) {
+      //create git folder 20
+      messageType = 'loading';
       updateProjectProgress(
-          project, progress, 'Directory already exists', "error");
-      return;
-    }, onNotExist: () {
-      progress = 20;
-      updateProjectProgress(project, progress, 'Done', "loading");
-    });
+          project, progress, 'Create git directory', messageType);
+      FileUtil.createFolder(gitFolder, onExist: () {
+        messageType = 'error';
+        updateProjectProgress(
+            project, progress, 'Directory already exists', messageType);
+      }, onNotExist: () {
+        messageType = 'loading';
+        progress = 20;
+        updateProjectProgress(project, progress, 'Done', messageType);
+        next();
+      });
+    }
 
     //git config 50
+    void gitConfig({required Function next}) {
+      messageType = 'loading';
+      updateProjectProgress(project, progress, 'Configuring git', messageType);
+      var shell = Shell();
 
-    //git clone 70
-    //git change to correct branch 100
+      shell.run('''
+        cd $gitFolder
+        git config --global user.name "$username"
+        git config --global user.email "$username"
+        git config --global user.password "$password"
+        ''').then((value) {
+        messageType = 'loading';
+        progress = 50;
+        updateProjectProgress(
+            project, progress, 'Git config successfully', messageType);
+        next();
+      }).catchError((result) {
+        print(result);
+        messageType = 'error';
+        updateProjectProgress(
+            project, progress, 'Git config failure', messageType);
+      });
+    }
+
+    //git clone 100
+    void gitClone({required Function next}) {
+      var shell = Shell();
+      messageType = 'loading';
+      updateProjectProgress(project, progress, 'Cloning git', messageType);
+      String gitUrl = project.getString('git');
+      String gitBranch = project.getString('branch');
+
+      shell.run('''
+        git clone -b $gitBranch $gitUrl $gitFolder/$projectName
+        ''').then((value) {
+        messageType = 'loading';
+        progress = 100;
+        updateProjectProgress(
+            project, progress, 'Git clone successfully', messageType);
+        next();
+      }).catchError((result) {
+        print(result);
+        messageType = 'error';
+        updateProjectProgress(
+            project, progress, 'Git clone failure', messageType);
+      });
+    }
+
     //done
-    progress = 100;
-    updateProjectProgress(project, progress, 'Done', "success");
+    void done() {
+      messageType = 'success';
+      progress = 100;
+      updateProjectProgress(project, progress, 'Done', messageType);
+      isProcessing.value = false;
+    }
 
-    project.printJson();
+    //run
+    createProjectFolder(next: () {
+      createGitFolder(next: () {
+        gitConfig(next: () {
+          gitClone(next: () {
+            done();
+          });
+        });
+      });
+    });
   }
 }
