@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
 import 'package:shinobi_tool/routes/routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';

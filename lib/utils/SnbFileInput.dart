@@ -7,11 +7,13 @@ class SnbFileInput extends StatefulWidget {
   bool isPickFile = true;
   bool isPickDirectory;
   Function onChanged;
+  Function? onEditingComplete;
   TextEditingController controller = new TextEditingController();
   SnbFileInput(
       {Key? key,
       required controller,
       this.isPickDirectory = false,
+      this.onEditingComplete,
       required this.onChanged})
       : super(key: key);
 
@@ -30,6 +32,9 @@ class _SnbFileInputState extends State<SnbFileInput> {
   Widget build(BuildContext context) {
     return TextField(
       readOnly: true,
+      onEditingComplete: () {
+        widget.onEditingComplete!();
+      },
       controller: widget.controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(),

@@ -4,6 +4,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/RootTemplate.dart';
+import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbFileInput.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
@@ -13,6 +14,7 @@ import 'controllers/SetupSourceController.dart';
 class SetupSourcePage extends StatelessWidget {
   SetupSourcePage({Key? key}) : super(key: key);
   final controller = Get.put(SetupSourceController());
+  final LocalStorage storage = LocalStorage.instance();
   final TextEditingController projectDirectoryController =
       new TextEditingController();
   final TextEditingController gitUsernameController =
@@ -22,10 +24,19 @@ class SetupSourcePage extends StatelessWidget {
 
   @override
   Widget build(context) {
+    preload();
     return RootTemplate(
       title: 'Setup Source',
       child: buildBodyWidget(),
     );
+  }
+
+  void preload() {
+    storage.getJsonAllData().then((SnbJson data) {
+      gitUsernameController.text = data.getString('gitUsername');
+      gitPasswordController.text = data.getString('gitPassword');
+      projectDirectoryController.text = data.getString('projectDirectory');
+    });
   }
 
   Widget buildBodyWidget() {
@@ -211,6 +222,7 @@ class SetupSourcePage extends StatelessWidget {
           control(
             child: TextField(
               controller: gitUsernameController,
+              onChanged: (value) => storage.setItem('gitUsername', value),
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
                 labelText: 'Git Username',
@@ -220,6 +232,8 @@ class SetupSourcePage extends StatelessWidget {
           control(
             child: TextField(
               controller: gitPasswordController,
+              onChanged: (value) =>
+                  storage.setItem('gitPassword', gitPasswordController.text),
               obscureText: true,
               decoration: InputDecoration(
                 border: OutlineInputBorder(),
@@ -232,6 +246,8 @@ class SetupSourcePage extends StatelessWidget {
               controller: projectDirectoryController,
               isPickDirectory: true,
               onChanged: (String directory) {
+                storage.setItem(
+                    'projectDirectory', projectDirectoryController.text);
                 this.projectDirectoryController.text = directory;
                 print(directory);
               },

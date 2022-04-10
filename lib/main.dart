@@ -6,7 +6,6 @@ import 'modules/Home/HomePage.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
-  print(Get.isDarkMode);
   runApp(GetMaterialApp(
       debugShowCheckedModeBanner: false,
       /* light theme settings */
