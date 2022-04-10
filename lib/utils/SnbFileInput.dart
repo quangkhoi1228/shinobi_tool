@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -6,13 +8,18 @@ import 'package:flutter/material.dart';
 class SnbFileInput extends StatefulWidget {
   bool isPickFile = true;
   bool isPickDirectory;
+  String labelText;
   Function onChanged;
   Function? onEditingComplete;
   TextEditingController controller;
+  List<String> allowedExtensions;
+
   SnbFileInput(
       {Key? key,
+      required this.labelText,
       required this.controller,
       this.isPickDirectory = false,
+      this.allowedExtensions = const [],
       this.onEditingComplete,
       required this.onChanged})
       : super(key: key);
@@ -38,11 +45,15 @@ class _SnbFileInputState extends State<SnbFileInput> {
       controller: widget.controller,
       decoration: InputDecoration(
         border: OutlineInputBorder(),
-        labelText: 'Projects Directory',
+        labelText: widget.labelText,
       ),
       onTap: () {
         if (widget.isPickDirectory) {
           selectDirectory();
+        }
+
+        if (widget.isPickFile) {
+          selectFile();
         }
       },
     );
@@ -57,6 +68,33 @@ class _SnbFileInputState extends State<SnbFileInput> {
       print(selectedDirectory);
       widget.controller.text = selectedDirectory;
       widget.onChanged(selectedDirectory);
+    }
+  }
+
+  Future<void> selectFile() async {
+    FileType fileType = FileType.any;
+    var allowedExtensions;
+    if (widget.allowedExtensions.length > 0) {
+      fileType = FileType.custom;
+      allowedExtensions = widget.allowedExtensions;
+    }
+    FilePickerResult? result = await FilePicker.platform
+        .pickFiles(type: fileType, allowedExtensions: allowedExtensions);
+
+    if (result != null) {
+      print(":a");
+      String path = "";
+      if (result.files.single.path != null) {
+        path = result.files.single.path!;
+      }
+      File file = File(path);
+      print(file.path);
+      widget.controller.text = file.path;
+      widget.onChanged(file.path);
+    } else {
+      print(":a2");
+      // User canceled the picker
+      widget.controller.text = "";
     }
   }
 }

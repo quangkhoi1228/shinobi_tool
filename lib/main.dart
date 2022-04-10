@@ -45,7 +45,7 @@ void main() {
          ThemeMode.dark for dark theme */
       themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: Routes.getRoutes(),
-      initialRoute: Routes.setupSourcePage,
+      initialRoute: Routes.exportJarPage,
       unknownRoute: Routes.getPageByName(Routes.notFoundPage),
       home: HomePage()));
 }

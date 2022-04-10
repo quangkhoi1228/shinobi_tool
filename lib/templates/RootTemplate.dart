@@ -41,12 +41,18 @@ class _RootTemplateState extends State<RootTemplate> {
           ],
         ),
         drawer: _buildDrawer(),
-        body: Container(
-            padding: EdgeInsets.all(Css.padding), child: widget.child));
+        body: SingleChildScrollView(
+          child: Container(
+              padding: EdgeInsets.all(Css.padding), child: widget.child),
+        ));
   }
 
   Widget _buildDrawer() {
-    List<String> drawerItem = [Routes.homePage, Routes.setupSourcePage];
+    List<String> drawerItem = [
+      Routes.homePage,
+      Routes.setupSourcePage,
+      Routes.exportJarPage,
+    ];
 
     List<Widget> children = drawerItem.map((String drawerItem) {
       RouteItem item = Routes.getRouteItemByName(drawerItem);

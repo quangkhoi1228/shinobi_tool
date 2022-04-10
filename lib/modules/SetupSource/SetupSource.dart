@@ -71,6 +71,7 @@ class SetupSourcePage extends StatelessWidget {
                 Text(
                   "Project list",
                   style: TextStyle(
+                      color: Get.theme.accentColor,
                       fontSize: Css.fontSizeMedium,
                       fontWeight: Css.fontWeightBold),
                 ),
@@ -260,6 +261,7 @@ class SetupSourcePage extends StatelessWidget {
             child: SnbFileInput(
               controller: projectDirectoryController,
               isPickDirectory: true,
+              labelText: 'Project Directory',
               onChanged: (String directory) {
                 storage.setItem(
                     'projectDirectory', projectDirectoryController.text);

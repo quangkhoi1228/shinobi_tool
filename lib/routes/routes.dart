@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shinobi_tool/modules/ExportJar/ExportJar.dart';
 import 'package:shinobi_tool/modules/Home/HomePage.dart';
 import 'package:shinobi_tool/modules/SetupSource/SetupSource.dart';
 import 'package:shinobi_tool/modules/Unknown/UnknownPage.dart';
@@ -22,6 +23,7 @@ class Routes {
   static String homePage = '/';
   static String notFoundPage = '/notfound/';
   static String setupSourcePage = '/SetupSourcePage/';
+  static String exportJarPage = '/ExportJarPage/';
 
   static List<RouteItem> routes = [
     RouteItem(
@@ -36,6 +38,11 @@ class Routes {
         icon: Icon(Icons.settings),
         title: 'Setup Source',
         page: SetupSourcePage()),
+    RouteItem(
+        name: '/ExportJarPage/',
+        icon: Icon(Icons.exit_to_app),
+        title: 'Export Jar',
+        page: ExportJarPage()),
   ];
 
   static RouteItem getRouteItemByName(String name) {
