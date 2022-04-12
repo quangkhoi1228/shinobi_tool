@@ -180,6 +180,7 @@ class ExportJarPage extends StatelessWidget {
               builder: (_) => SnbButton(
                   text: "Create export jar file",
                   isDisabled: controller.isProcessing.isTrue,
+                  isLoading: controller.isProcessing.isTrue,
                   onPressed: () {
                     controller.procesing(
                         projectDirectory: projectDirectoryController.text,
