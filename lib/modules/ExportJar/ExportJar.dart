@@ -76,7 +76,7 @@ class ExportJarPage extends StatelessWidget {
   Widget buildBodyWidget() {
     return SingleChildScrollView(
       child: Container(
-          padding: EdgeInsets.only(right: Css.paddingLarge, left: Css.padding),
+          margin: EdgeInsets.only(right: Css.paddingLarge, left: Css.padding),
           child: Column(children: [
             control(
               child: SnbFileInput(
@@ -176,11 +176,22 @@ class ExportJarPage extends StatelessWidget {
               ),
             )),
             control(
-                child: SnbButton(
-                    text: "Export",
-                    // isDisabled:
-                    //     selectedItems.length == 0 || controller.hasProcessingItem(),
-                    onPressed: () {}))
+                child: GetX<ExportJarController>(
+              builder: (_) => SnbButton(
+                  text: "Create export jar file",
+                  isDisabled: controller.isProcessing.isTrue,
+                  onPressed: () {
+                    controller.procesing(
+                        projectDirectory: projectDirectoryController.text,
+                        projectName: projectNameController.text,
+                        mainClass: mainClassController.text,
+                        workspace: workspaceController.text,
+                        outputDirectory: outputController.text,
+                        isUseShinobiServer:
+                            controller.isUseShinobiServer.isTrue,
+                        shinobiServerDirectory: shinobiServerController.text);
+                  }),
+            ))
           ])),
     );
   }

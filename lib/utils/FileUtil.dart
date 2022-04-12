@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 
 class FileUtil {
+  static Future<File> cretateFile(String path) async {
+    return File(path);
+  }
+
   static Future<String> readFileFromAsset(String path) async {
     print(path);
     return rootBundle.loadString(path).then((value) {
@@ -13,6 +17,13 @@ class FileUtil {
         return value;
       }
     });
+  }
+
+  static Future<File> writeFileFromAsset(String path, String content) async {
+    final file = await cretateFile(path);
+
+    // Write the file
+    return file.writeAsString(content);
   }
 
   static Future<void> createFolder(String folderPath,
@@ -31,5 +42,10 @@ class FileUtil {
         onNotExist();
       }
     }
+  }
+
+  static Future<void> copyFile(String sourcesPath, String targetPath) async {
+    File file = File(sourcesPath);
+    await file.copy(targetPath);
   }
 }

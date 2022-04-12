@@ -31,7 +31,7 @@ class SetupSourceController extends GetxController {
   }
 
   void buildProjectList() async {
-    FileUtil.readFileFromAsset('assets/project-list.json')
+    FileUtil.readFileFromAsset('assets/setup-source/project-list.json')
         .then((String fileContent) {
       SnbJson content = SnbJson(fileContent);
       List<SnbJson> list = [];

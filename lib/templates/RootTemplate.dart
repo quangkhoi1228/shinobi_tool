@@ -41,6 +41,6 @@ class _RootTemplateState extends State<RootTemplate> {
         ),
         drawer: Menu(),
         body: Container(
-            padding: EdgeInsets.all(Css.padding), child: widget.child));
+            margin: EdgeInsets.all(Css.padding), child: widget.child));
   }
 }
