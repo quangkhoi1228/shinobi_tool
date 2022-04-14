@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider_macos/path_provider_macos.dart';
 
 import 'SnbJson.dart';

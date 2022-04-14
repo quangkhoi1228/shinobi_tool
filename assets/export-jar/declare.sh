@@ -13,7 +13,7 @@ export main_class=com.shinobiweb.main.Main
 
 
 #Thư mục chứa file xml kết quả
-export output_dir=/Volumes/home/Project/tets
+export output_dir=/Volumes/home/Project/tets/test-output
 # export output_dir=/Volumes/home/Project/ant-build-generation/git/ant-build-generation/out
 
 

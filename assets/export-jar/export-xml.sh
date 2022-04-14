@@ -5,18 +5,20 @@
 # export output_dir=$output_dir
 
 export current_path="$PWD"
+cd $project_dir 
 
-cd $project_dir
-
+export xml_file_name=build_${project_name}.xml
+rm $output_dir/$project_name.jar
 brew install maven
+
+
+
 
 #create dependency list file 
 #maven jar
 export dependency_list_file_name=${project_name}_dependency_list.csv
-rm $output_dir/$dependency_list_file_name
 mvn dependency:build-classpath -Dmdep.outputFile=$output_dir/$dependency_list_file_name
 sed -i -e 's/:/\'$'\n''/g' $output_dir/$dependency_list_file_name
-rm $output_dir/$dependency_list_file_name-e
 
 #other jar
 declare -a  project_jar_directory_dependencies1=$project_jar_directory_dependencies
@@ -38,8 +40,6 @@ do
 done < $output_dir/$dependency_list_file_name
 
 
-export xml_file_name=build_${project_name}.xml
-rm $output_dir/$xml_file_name
 cat $output_dir/template.xml > $output_dir/$xml_file_name
 
 sed -i -e 's/\${{project_name}}/'${project_name}'/g' $output_dir/$xml_file_name
@@ -48,10 +48,22 @@ sed -i -e "s|\${{workspace}}|${workspace}|g" $output_dir/$xml_file_name
 sed -i -e "s|\${{jar_file_in_lib_folder_class_path}}|${jar_file_in_lib_folder_class_path}|g" $output_dir/$xml_file_name
 sed -i -e "s|\${{jar_file_in_user_maven_folder_class_path}}|${jar_file_in_user_maven_folder_class_path}|g" $output_dir/$xml_file_name
 
+
 rm $output_dir/$xml_file_name-e
-rm $output_dir/export-jar-file.sh
+rm $output_dir/export-jar-file.command
 rm $output_dir/template.xml
 rm $output_dir/$dependency_list_file_name
+rm $output_dir/$dependency_list_file_name-e
+
 
 
 echo "done"
+
+brew install ant
+
+cd $output_dir
+
+ant -f $xml_file_name
+
+
+osascript -e 'tell application "Terminal" to quit'

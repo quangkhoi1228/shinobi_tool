@@ -1,5 +1,7 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:get/get.dart';
-import 'package:process_run/shell.dart';
 import 'package:shinobi_tool/utils/FileUtil.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbNotification.dart';
@@ -14,7 +16,6 @@ class ExportJarController extends GetxController {
   @override
   void onInit() {
     storage.getJsonAllData().then((data) {
-      data.printJson();
       onChangeUseShinobiServer(data.getBool('exportJar_useShinobiServer'));
     });
     super.onInit();
@@ -22,6 +23,28 @@ class ExportJarController extends GetxController {
 
   void onChangeUseShinobiServer(bool value) {
     isUseShinobiServer.value = value;
+  }
+
+  void checkProcessSuccessfully(
+      {String? projectDirectory,
+      required String projectName,
+      String? mainClass,
+      String? workspace,
+      required String outputDirectory,
+      bool? isUseShinobiServer,
+      String? shinobiServerDirectory}) {
+    String buildJarFilePath = '$outputDirectory/$projectName.jar';
+    Timer.periodic(new Duration(seconds: 2), (Timer timer) {
+      File file = File(buildJarFilePath);
+      file.exists().then((value) {
+        print(value);
+        if (value) {
+          isProcessing.value = false;
+          timer.cancel();
+          SnbNotification.success('Export jar file successfully');
+        }
+      });
+    });
   }
 
   void procesing(
@@ -51,8 +74,9 @@ class ExportJarController extends GetxController {
           .then((declareContent) {
         FileUtil.readFileFromAsset('assets/export-jar/export-xml.sh')
             .then((exportXmlContent) {
-          FileUtil.copyFile('assets/export-jar/template.xml',
-              '$outputDirectory/template.xml');
+          FileUtil.copyFile(
+              'assets/export-jar/template.xml', '$outputDirectory/template.xml',
+              isAssetSource: true);
 
           String script = '''
 $declareContent
@@ -60,21 +84,22 @@ $exportXmlContent
 ''';
 
           FileUtil.writeFileFromAsset(
-              '$outputDirectory/export-jar-file.sh', script);
+              '$outputDirectory/export-jar-file.command', script);
 
           SnbTerminal.runCmd('''
-sh $outputDirectory/export-jar-file.sh
+chmod +x $outputDirectory/export-jar-file.command
+open $outputDirectory/export-jar-file.command
+
 ''', onSuccess: (results) {
-            results.forEach((element) {
-              SnbNotification.success('Create export jar file successfully');
-              isProcessing.value = false;
-            });
+            checkProcessSuccessfully(
+                outputDirectory: outputDirectory, projectName: projectName);
           }, onError: (error) {
             SnbNotification.error(error.toString());
             isProcessing.value = false;
           });
         });
       });
+      //
     }
 
     FileUtil.readFileFromAsset('assets/export-jar/declare_template.sh')

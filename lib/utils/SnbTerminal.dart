@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:process_run/shell.dart';
 
 class SnbTerminal {
-  static Shell shell = Shell();
+  static Shell shell = Shell(runInShell: true);
 
   static void runCmd(String script,
       {Function(List<ProcessResult> results)? onSuccess,

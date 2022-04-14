@@ -10,7 +10,7 @@ class FileUtil {
   static Future<String> readFileFromAsset(String path) async {
     print(path);
     return rootBundle.loadString(path).then((value) {
-      if (value == null) {
+      if (value == "") {
         print('file $path not found');
         return "";
       } else {
@@ -44,8 +44,16 @@ class FileUtil {
     }
   }
 
-  static Future<void> copyFile(String sourcesPath, String targetPath) async {
-    File file = File(sourcesPath);
-    await file.copy(targetPath);
+  static Future<void> copyFile(String sourcesPath, String targetPath,
+      {bool isAssetSource = false}) async {
+    if (isAssetSource) {
+      readFileFromAsset(sourcesPath).then((sourceContent) {
+        writeFileFromAsset(targetPath, sourceContent);
+        return;
+      });
+    } else {
+      File file = File(sourcesPath);
+      await file.copy(targetPath);
+    }
   }
 }
