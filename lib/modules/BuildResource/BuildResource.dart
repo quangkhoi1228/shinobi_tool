@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/RootTemplate.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
+import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
 
 import 'controllers/BuildResourceController.dart';
@@ -27,7 +28,13 @@ class BuildResourcePage extends StatelessWidget {
   }
 
   Widget buildBodyWidget() {
-    return Container();
+    return Container(
+      child: SnbButton(
+          text: 'adawdaw',
+          onPressed: () {
+            controller.process();
+          }),
+    );
   }
 
   Widget control({required Widget child}) {

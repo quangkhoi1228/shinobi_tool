@@ -16,7 +16,7 @@ void main() {
       darkTheme: Palette.darkTheme,
       themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: Routes.getRoutes(),
-      initialRoute: Routes.homePage,
+      initialRoute: Routes.buildResource,
       unknownRoute: Routes.getPageByName(Routes.notFoundPage),
       home: HomePage()));
 }

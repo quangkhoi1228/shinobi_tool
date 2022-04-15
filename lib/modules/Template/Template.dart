@@ -6,11 +6,11 @@ import 'package:shinobi_tool/templates/RootTemplate.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
 
-import 'controllers/TemplateController.dart';
+import 'controllers/PageTemplateController.dart';
 
-class TemplatePage extends StatelessWidget {
-  TemplatePage({Key? key}) : super(key: key);
-  final controller = Get.put(TemplateController());
+class PageTemplatePage extends StatelessWidget {
+  PageTemplatePage({Key? key}) : super(key: key);
+  final controller = Get.put(PageTemplateController());
   final LocalStorage storage = LocalStorage.instance();
 
   @override
