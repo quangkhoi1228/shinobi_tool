@@ -10,7 +10,7 @@ class Menu extends StatelessWidget {
   static List<String> drawerItem = [
     Routes.homePage,
     Routes.setupSourcePage,
-    Routes.buildResource,
+    Routes.buildResourcePage,
     Routes.exportJarPage,
   ];
 

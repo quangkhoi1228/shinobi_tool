@@ -6,13 +6,28 @@ import 'package:shinobi_tool/modules/Home/controllers/HomeController.dart';
 import 'package:shinobi_tool/routes/Routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/Menu.dart';
+import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 
 class HomePage extends StatelessWidget {
   final controller = Get.put(HomeController());
 
   @override
   Widget build(context) {
+    preload();
     return buildBodyWidget();
+  }
+
+  void preload() {
+    if (RootTemplateController.hasLoadLastPage.isFalse) {
+      RootTemplateController.getCurrentPage().then((currentPage) {
+        RootTemplateController.hasLoadLastPage.value = true;
+        if (currentPage != Routes.homePage) {
+          Get.toNamed(currentPage);
+        } else {
+          RootTemplateController.setCurrentPage(Routes.homePage);
+        }
+      });
+    }
   }
 
   buildBodyWidget() {

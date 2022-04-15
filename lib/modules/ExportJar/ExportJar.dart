@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shinobi_tool/routes/routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/RootTemplate.dart';
+import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbFileInput.dart';
@@ -28,6 +30,7 @@ class ExportJarPage extends StatelessWidget {
   @override
   Widget build(context) {
     preload();
+
     return RootTemplate(
       title: 'Export Jar',
       child: buildBodyWidget(),
@@ -35,6 +38,8 @@ class ExportJarPage extends StatelessWidget {
   }
 
   void preload() {
+    RootTemplateController.setCurrentPage(Routes.exportJarPage);
+
     storage.getJsonAllData().then((SnbJson data) {
       projectDirectoryController.text =
           data.getString('exportJar_projectDirectory');

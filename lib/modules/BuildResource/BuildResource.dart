@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shinobi_tool/routes/Routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/RootTemplate.dart';
+import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbJson.dart';
@@ -17,6 +19,7 @@ class BuildResourcePage extends StatelessWidget {
   @override
   Widget build(context) {
     preload();
+
     return RootTemplate(
       title: 'Build Resource',
       child: buildBodyWidget(),
@@ -24,6 +27,7 @@ class BuildResourcePage extends StatelessWidget {
   }
 
   void preload() {
+    RootTemplateController.setCurrentPage(Routes.buildResourcePage);
     storage.getJsonAllData().then((SnbJson data) {});
   }
 

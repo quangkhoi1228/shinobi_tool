@@ -29,7 +29,7 @@ class Routes {
   static String notFoundPage = '/notfound/';
   static String setupSourcePage = '/SetupSourcePage/';
   static String exportJarPage = '/ExportJarPage/';
-  static String buildResource = '/BuildResource/';
+  static String buildResourcePage = '/BuildResource/';
 
   static List<Color> iconColor = [
     Css.color('#e668b3'),
@@ -98,7 +98,7 @@ class Routes {
     RouteItem(
         name: '/BuildResource/',
         icon: (bool isActive, {bool hasColor = false, int index = 0}) {
-          return getIcon(Routes.buildResource, FontAwesomeIcons.fileZipper,
+          return getIcon(Routes.buildResourcePage, FontAwesomeIcons.fileZipper,
               isActive, hasColor, index);
         },
         description: 'Compress and optimize static files automatically',

@@ -2,8 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
+import 'package:shinobi_tool/routes/Routes.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/RootTemplate.dart';
+import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbFileInput.dart';
@@ -33,6 +35,7 @@ class SetupSourcePage extends StatelessWidget {
   }
 
   void preload() {
+    RootTemplateController.setCurrentPage(Routes.setupSourcePage);
     storage.getJsonAllData().then((SnbJson data) {
       gitUsernameController.text = data.getString('gitUsername');
       gitPasswordController.text = data.getString('gitPassword');

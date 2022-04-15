@@ -16,10 +16,11 @@ void main() {
       darkTheme: Palette.darkTheme,
       themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: Routes.getRoutes(),
-      initialRoute: Routes.buildResource,
+      initialRoute: Routes.homePage,
       unknownRoute: Routes.getPageByName(Routes.notFoundPage),
       home: HomePage()));
 }
+
 
 void initLoad() {
   PackageInfo.fromPlatform().then((packageInfo) {
