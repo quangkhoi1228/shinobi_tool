@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:shinobi_tool/modules/BuildResource/BuildResource.dart';
 import 'package:shinobi_tool/modules/ExportJar/ExportJar.dart';
 import 'package:shinobi_tool/modules/Home/HomePage.dart';
 import 'package:shinobi_tool/modules/SetupSource/SetupSource.dart';
@@ -27,7 +29,17 @@ class Routes {
   static String notFoundPage = '/notfound/';
   static String setupSourcePage = '/SetupSourcePage/';
   static String exportJarPage = '/ExportJarPage/';
+  static String buildResource = '/BuildResource/';
+
   static List<Color> iconColor = [
+    Css.color('#e668b3'),
+    Css.color('#a07cc5'),
+    Css.color('#f78b77'),
+    Css.color('#45c4a0'),
+    Css.color('#e668b3'),
+    Css.color('#a07cc5'),
+    Css.color('#f78b77'),
+    Css.color('#45c4a0'),
     Css.color('#e668b3'),
     Css.color('#a07cc5'),
     Css.color('#f78b77'),
@@ -48,8 +60,8 @@ class Routes {
     RouteItem(
         name: '/',
         icon: (bool isActive, {bool hasColor = false, int index = 0}) {
-          return getIcon(
-              Routes.homePage, Icons.home, isActive, hasColor, index);
+          return getIcon(Routes.homePage, FontAwesomeIcons.house, isActive,
+              hasColor, index);
         },
         title: 'Home',
         description: 'Home page',
@@ -66,8 +78,8 @@ class Routes {
     RouteItem(
         name: '/SetupSourcePage/',
         icon: (bool isActive, {bool hasColor = false, int index = 0}) {
-          return getIcon(Routes.setupSourcePage, Icons.settings, isActive,
-              hasColor, index);
+          return getIcon(Routes.setupSourcePage, FontAwesomeIcons.folderTree,
+              isActive, hasColor, index);
         },
         description:
             'Create a folder structure and pull multiple projects at once',
@@ -76,13 +88,22 @@ class Routes {
     RouteItem(
         name: '/ExportJarPage/',
         icon: (bool isActive, {bool hasColor = false, int index = 0}) {
-          return getIcon(Routes.exportJarPage, Icons.exit_to_app, isActive,
-              hasColor, index);
+          return getIcon(Routes.exportJarPage, FontAwesomeIcons.fileExport,
+              isActive, hasColor, index);
         },
         description:
             'Create deployable files/directory like xml, jar, lib without eclipse',
         title: 'Export Jar',
         page: ExportJarPage()),
+    RouteItem(
+        name: '/BuildResource/',
+        icon: (bool isActive, {bool hasColor = false, int index = 0}) {
+          return getIcon(Routes.buildResource, FontAwesomeIcons.fileZipper,
+              isActive, hasColor, index);
+        },
+        description: 'Compress and optimize static files automatically',
+        title: 'Build Resource',
+        page: BuildResourcePage()),
   ];
 
   static RouteItem getRouteItemByName(String name) {

@@ -4,24 +4,43 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:get/get.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 
+import 'SnbSize.dart';
+
 class SnbButton extends StatelessWidget {
   final String text;
   final Function onPressed;
   final bool isDisabled;
   final Widget? child;
   final bool isLoading;
+  final SnbSize size;
+  final bool isText;
   SnbButton(
       {required this.text,
       this.isLoading = false,
       this.child,
+      this.size = SnbSize.normal,
       this.isDisabled = false,
+      this.isText = false,
       required this.onPressed});
   @override
   Widget build(BuildContext context) {
+    double textSize;
+    switch (size) {
+      case SnbSize.large:
+        textSize = Css.fontSizeLarge;
+        break;
+      case SnbSize.small:
+        textSize = Css.fontSizeSmall;
+        break;
+      case SnbSize.normal:
+      default:
+        textSize = Css.fontSize;
+        break;
+    }
     bool hasChild = (this.child != null);
     Widget textWidget = Text(text.toUpperCase(),
         style: TextStyle(
-          fontSize: Css.fontSize,
+          fontSize: textSize,
         ));
     Widget childWidget = (hasChild)
         ? this.child!
@@ -43,16 +62,26 @@ class SnbButton extends StatelessWidget {
             : textWidget;
     return Container(
       width: double.infinity,
-      height: Css.fontSize * 3,
-      child: ElevatedButton(
-        onPressed: (this.isDisabled)
-            ? null
-            : () {
-                this.onPressed();
-              },
-        style: ButtonStyle(),
-        child: childWidget,
-      ),
+      height: textSize * 3,
+      child: isText
+          ? TextButton(
+              onPressed: (this.isDisabled)
+                  ? null
+                  : () {
+                      this.onPressed();
+                    },
+              style: ButtonStyle(),
+              child: childWidget,
+            )
+          : ElevatedButton(
+              onPressed: (this.isDisabled)
+                  ? null
+                  : () {
+                      this.onPressed();
+                    },
+              style: ButtonStyle(),
+              child: childWidget,
+            ),
     );
   }
 }

@@ -10,6 +10,7 @@ class Menu extends StatelessWidget {
   static List<String> drawerItem = [
     Routes.homePage,
     Routes.setupSourcePage,
+    Routes.buildResource,
     Routes.exportJarPage,
   ];
 
@@ -33,8 +34,15 @@ class Menu extends StatelessWidget {
             : BoxDecoration(),
         child: ListTile(
           title: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              icon,
+              Container(
+                  width: Css.fontSize * 2.5,
+                  child: Row(
+                    children: [
+                      icon,
+                    ],
+                  )),
               Text(item.title,
                   style: isActive
                       ? TextStyle(color: Get.theme.cardColor)

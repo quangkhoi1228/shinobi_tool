@@ -66,6 +66,7 @@ class SnbJson {
 
   List<Widget> getListWidget(String key) {
     List<Widget> value = get(key);
+    // ignore: unnecessary_null_comparison
     return (value != null) ? value : [];
   }
 
