@@ -184,4 +184,13 @@ class Css {
       900: (hslColor.withLightness(lightness - (highStep * 4))).toColor(),
     };
   }
+
+  static List<BoxShadow> boxShadow = [
+    BoxShadow(
+      color: Colors.grey.shade300.withOpacity(0.5),
+      spreadRadius: 1,
+      blurRadius: 7,
+      offset: Offset(0, 3), // changes position of shadow
+    ),
+  ];
 }

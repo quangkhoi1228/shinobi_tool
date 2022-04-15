@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:shinobi_tool/routes/routes.dart';
+import 'package:shinobi_tool/routes/Routes.dart';
 import 'package:shinobi_tool/utils/LocalStorage.dart';
 
 import 'modules/Home/HomePage.dart';
@@ -45,7 +45,7 @@ void main() {
          ThemeMode.dark for dark theme */
       themeMode: Get.isDarkMode ? ThemeMode.dark : ThemeMode.light,
       getPages: Routes.getRoutes(),
-      initialRoute: Routes.exportJarPage,
+      initialRoute: Routes.homePage,
       unknownRoute: Routes.getPageByName(Routes.notFoundPage),
       home: HomePage()));
 }

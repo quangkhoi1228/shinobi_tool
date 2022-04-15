@@ -10,12 +10,14 @@ import 'package:shinobi_tool/styles/Css.dart';
 class RouteItem {
   String name;
   String title;
+  String description;
   Widget page;
   Function icon;
 
   RouteItem(
       {required this.name,
       required this.title,
+      required this.description,
       required this.icon,
       required this.page});
 }
@@ -25,46 +27,60 @@ class Routes {
   static String notFoundPage = '/notfound/';
   static String setupSourcePage = '/SetupSourcePage/';
   static String exportJarPage = '/ExportJarPage/';
+  static List<Color> iconColor = [
+    Css.color('#e668b3'),
+    Css.color('#a07cc5'),
+    Css.color('#f78b77'),
+    Css.color('#45c4a0'),
+  ];
+
+  static Widget getIcon(
+      String name, IconData iconData, bool isActive, bool hasColor, int index) {
+    if (hasColor) {
+      return Icon(iconData, size: Css.fontSize * 2.5, color: iconColor[index]);
+    }
+    return Icon(iconData,
+        size: Css.fontSizeMedium,
+        color: (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+  }
 
   static List<RouteItem> routes = [
     RouteItem(
         name: '/',
-        icon: (bool isActive) {
-          return Icon(Icons.home,
-              size: Css.fontSizeMedium,
-              color:
-                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        icon: (bool isActive, {bool hasColor = false, int index = 0}) {
+          return getIcon(
+              Routes.homePage, Icons.home, isActive, hasColor, index);
         },
         title: 'Home',
+        description: 'Home page',
         page: new HomePage()),
     RouteItem(
         name: '/notfound/',
-        icon: (bool isActive) {
-          return Icon(Icons.home,
-              size: Css.fontSizeMedium,
-              color:
-                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        icon: (bool isActive, {bool hasColor = false, int index = 0}) {
+          return getIcon(
+              Routes.notFoundPage, Icons.home, isActive, hasColor, index);
         },
+        description: '502 Page not found',
         title: 'Not Found',
         page: UnknownPage()),
     RouteItem(
         name: '/SetupSourcePage/',
-        icon: (bool isActive) {
-          return Icon(Icons.settings,
-              size: Css.fontSizeMedium,
-              color:
-                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        icon: (bool isActive, {bool hasColor = false, int index = 0}) {
+          return getIcon(Routes.setupSourcePage, Icons.settings, isActive,
+              hasColor, index);
         },
+        description:
+            'Create a folder structure and pull multiple projects at once',
         title: 'Setup Source',
         page: SetupSourcePage()),
     RouteItem(
         name: '/ExportJarPage/',
-        icon: (bool isActive) {
-          return Icon(Icons.exit_to_app,
-              size: Css.fontSizeMedium,
-              color:
-                  (isActive) ? Get.theme.cardColor : Get.theme.iconTheme.color);
+        icon: (bool isActive, {bool hasColor = false, int index = 0}) {
+          return getIcon(Routes.exportJarPage, Icons.exit_to_app, isActive,
+              hasColor, index);
         },
+        description:
+            'Create deployable files/directory like xml, jar, lib without eclipse',
         title: 'Export Jar',
         page: ExportJarPage()),
   ];
