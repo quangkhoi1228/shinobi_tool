@@ -45,6 +45,7 @@ class SetupSourcePage extends StatelessWidget {
 
   Widget buildBodyWidget() {
     return Container(
+      margin: EdgeInsets.all(Css.padding),
       child: Row(
         children: [
           Flexible(flex: 5, child: renderLoginInfo()),

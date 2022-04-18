@@ -81,7 +81,7 @@ class ExportJarPage extends StatelessWidget {
   Widget buildBodyWidget() {
     return SingleChildScrollView(
       child: Container(
-          margin: EdgeInsets.only(right: Css.paddingLarge, left: Css.padding),
+          margin: EdgeInsets.all(Css.padding),
           child: Column(children: [
             control(
               child: SnbFileInput(

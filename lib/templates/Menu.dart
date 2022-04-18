@@ -29,12 +29,13 @@ class Menu extends StatelessWidget {
       return Container(
         decoration: isActive
             ? BoxDecoration(
-                color: Get.theme.accentColor,
+                color: Get.theme.colorScheme.primary,
               )
             : BoxDecoration(),
         child: ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Container(
                   width: Css.fontSize * 2.5,
@@ -56,6 +57,29 @@ class Menu extends StatelessWidget {
       );
     }).toList();
 
+    children.insert(
+        0,
+        Container(
+          height: Css.fontSize * 7,
+          child: DrawerHeader(
+            decoration: BoxDecoration(),
+            child: Row(
+              children: [
+                Image.asset(
+                  'assets/logo.png',
+                  height: Css.fontSize * 6,
+                ),
+                Text(
+                  "Shinobi Tool",
+                  style: TextStyle(
+                      color: Get.theme.colorScheme.secondary,
+                      fontSize: Css.fontSizeLarge,
+                      fontWeight: Css.fontWeightMedium),
+                ),
+              ],
+            ),
+          ),
+        ));
     return Drawer(
         child: ListView(padding: EdgeInsets.zero, children: children));
   }

@@ -40,6 +40,7 @@ class SnbButton extends StatelessWidget {
     bool hasChild = (this.child != null);
     Widget textWidget = Text(text.toUpperCase(),
         style: TextStyle(
+          color: Get.theme.colorScheme.primaryVariant,
           fontSize: textSize,
         ));
     Widget childWidget = (hasChild)

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:shinobi_tool/styles/Css.dart';
 
 class Palette {
   static ThemeData lightTheme = ThemeData(
@@ -9,6 +11,20 @@ class Palette {
     accentIconTheme: IconThemeData(color: Colors.white),
     dividerColor: Colors.white54,
     scaffoldBackgroundColor: Colors.white,
+    colorScheme: ColorScheme(
+        primary: Css.color('#fca074'),
+        primaryVariant: Css.isWhite,
+        secondary: Css.color('#3b454e'),
+        secondaryVariant: Css.isWhite,
+        surface: Css.color('#3b454e'),
+        background: Css.isWhite,
+        error: Css.isDanger,
+        onPrimary: Css.color('#3b454e'),
+        onSecondary: Css.color('#3b454e'),
+        onSurface: Css.isGrey,
+        onBackground: Css.canvasColor,
+        onError: Css.isDanger,
+        brightness: Brightness.light),
   );
 
   /* Dark theme settings */

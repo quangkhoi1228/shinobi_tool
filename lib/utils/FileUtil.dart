@@ -56,4 +56,42 @@ class FileUtil {
       await file.copy(targetPath);
     }
   }
+
+  static List<FileSystemEntity> getListFilesFromDir(String path,
+      {bool fileOnly = false, bool folderOnly = false}) {
+    Directory dir = Directory(path);
+    List<FileSystemEntity> fileSystemEntity = dir.listSync(recursive: false);
+
+    bool includeFile = true;
+    bool includeFolder = true;
+
+    if (fileOnly) {
+      includeFile = true;
+      includeFolder = false;
+    }
+
+    if (folderOnly) {
+      includeFile = false;
+      includeFolder = true;
+    }
+
+    List<FileSystemEntity> result = [];
+
+    //detect file result list
+    fileSystemEntity.forEach((element) {
+      if (includeFile) {
+        if (File(element.path).existsSync()) {
+          result.add(element);
+        }
+      }
+
+      if (includeFolder) {
+        if (Directory(element.path).existsSync()) {
+          result.add(element);
+        }
+      }
+    });
+
+    return result;
+  }
 }
