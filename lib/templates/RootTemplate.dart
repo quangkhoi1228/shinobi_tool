@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/templates/Menu.dart';
 import 'package:shinobi_tool/templates/controller/RootTemplateController.dart';
 

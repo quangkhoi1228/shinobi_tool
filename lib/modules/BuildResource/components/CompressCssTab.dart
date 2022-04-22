@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:shinobi_tool/styles/Css.dart';
 import 'package:shinobi_tool/utils/SnbButton.dart';
 import 'package:shinobi_tool/utils/SnbTable.dart';

@@ -55,6 +55,12 @@ class ExportJarController extends GetxController {
       required String outputDirectory,
       required bool isUseShinobiServer,
       required String shinobiServerDirectory}) {
+    print(projectDirectory +
+        projectName +
+        mainClass +
+        workspace +
+        outputDirectory +
+        isUseShinobiServer.toString());
     isProcessing.value = true;
     if ([projectDirectory, projectName, mainClass, workspace, outputDirectory]
         .contains("")) {
@@ -69,36 +75,36 @@ class ExportJarController extends GetxController {
       return;
     }
 
-    void createExportJarFile() {
-      FileUtil.readFileFromAsset('assets/export-jar/declare.sh')
-          .then((declareContent) {
-        FileUtil.readFileFromAsset('assets/export-jar/export-xml.sh')
-            .then((exportXmlContent) {
-          FileUtil.copyFile(
-              'assets/export-jar/template.xml', '$outputDirectory/template.xml',
-              isAssetSource: true);
+    void createExportJarFile(String declareContent) {
+      // FileUtil.readFileFromAsset('assets/export-jar/declare.sh')
+      //     .then((declareContent) {
+      FileUtil.readFileFromAsset('assets/export-jar/export-xml.sh')
+          .then((exportXmlContent) {
+        FileUtil.copyFile(
+            'assets/export-jar/template.xml', '$outputDirectory/template.xml',
+            isAssetSource: true);
 
-          String script = '''
+        String script = '''
 $declareContent
 $exportXmlContent
 ''';
 
-          FileUtil.writeFileFromAsset(
-              '$outputDirectory/export-jar-file.command', script);
+        FileUtil.writeFileFromAsset(
+            '$outputDirectory/export-jar-file.command', script);
 
-          SnbTerminal.runCmd('''
+        SnbTerminal.runCmd('''
 chmod +x $outputDirectory/export-jar-file.command
 open $outputDirectory/export-jar-file.command
 
 ''', onSuccess: (results) {
-            checkProcessSuccessfully(
-                outputDirectory: outputDirectory, projectName: projectName);
-          }, onError: (error) {
-            SnbNotification.error(error.toString());
-            isProcessing.value = false;
-          });
+          checkProcessSuccessfully(
+              outputDirectory: outputDirectory, projectName: projectName);
+        }, onError: (error) {
+          SnbNotification.error(error.toString());
+          isProcessing.value = false;
         });
       });
+      // });
       //
     }
 
@@ -113,15 +119,7 @@ open $outputDirectory/export-jar-file.command
           .replaceAll('{shinobi_server}', shinobiServerDirectory);
 
       FileUtil.writeFileFromAsset('assets/export-jar/declare.sh', content);
-
-      SnbTerminal.runCmd('''
-rm $outputDirectory/template.xml
-rm $outputDirectory/export-jar-file.sh
-''', onSuccess: (results) {
-        createExportJarFile();
-      }, onError: (error) {
-        createExportJarFile();
-      });
+      createExportJarFile(content);
     });
   }
 }

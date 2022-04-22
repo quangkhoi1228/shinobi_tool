@@ -23,6 +23,6 @@ export workspace=/Volumes/home/Project/workspace
 
 
 #quy định đường dẫn đến các file jar được import ngoài maven nếu không có thì để là () - xóa chuỗi phía trong
-declare -a project_jar_directory_dependencies=("/Volumes/home/Project/tradingsystemweb/git/tradingsystemweb/lib/shinobiserver.jar")
+declare -a project_jar_directory_dependencies=("/Volumes/home/Project/aladin/git/aladin/aladin/lib/shinobiserver.jar")
 # declare -a project_jar_directory_dependencies=("/Volumes/home/Project/aladin/git/aladin/aladin/lib/shinobiserver.jar")
 
